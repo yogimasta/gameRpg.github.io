@@ -1,0 +1,399 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: black;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+#login-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: black; 
+    border: 2px solid blue; 
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Cinzel', serif; 
+    color: #ffffff; 
+    text-align: center; 
+}
+ #login-container h1 {
+    font-size: 32px;
+    color: blue; 
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px blue;
+}
+
+#login-container label {
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: blue; 
+}
+
+#login-container input {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 2px solid blue; 
+    border-radius: 8px;
+    background-color: black; 
+    color: #fff; 
+    font-size: 16px;
+}
+
+#login-container button {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: blue; 
+    color: #000;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; 
+}
+
+#login-container button:hover {
+    background-color: darkblue; 
+    transform: scale(1.05); 
+}
+
+
+
+#game-container, #delete-container, #history-container, #death-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+#game-container {
+display: flex;
+flex-direction: column;
+align-items: center;
+position: relative;
+}
+
+#player-name {
+    color: #00aaff;
+}
+
+
+button {
+    background-color: #00aaff;
+    color: #000000;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+#login-container, #delete-container, #history-container, #death-container {
+    display: none;
+}
+#story {
+font-family: Arial, sans-serif;
+color: #ffffff;
+padding: 10px;
+background-color: #1a1a1a;
+border-radius: 10px;
+line-height: 1.5;
+}
+
+.enemy-life {
+color: #ff4c4c;
+font-weight: bold;
+}
+
+.player-life {
+color: #00ff00;
+font-weight: bold;
+}
+
+.coins-earned {
+color: #ffaa00;
+font-weight: bold;
+}
+
+.dungeon-clear {
+color: #00aaff;
+font-weight: bold;
+}
+
+.stat-update {
+color: #00ffaa;
+font-weight: bold;
+}
+#stats {
+    background-color: #1a1a1a;
+    color: #00aaff;
+    padding: 20px;
+    border-radius: 10px;
+    font-family: Arial, sans-serif;
+}
+
+.stat {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #333333;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stat-title {
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.stat-value {
+    font-weight: bold;
+    color: #00ff00;
+}
+.section-title {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #ffaa00;
+    text-transform: uppercase;
+    border-bottom: 2px solid #ffaa00;
+    padding-bottom: 5px;
+}
+#commands {
+    margin-top: 20px;
+}
+#command-input {
+    width: 70%;
+    padding: 10px;
+    border: 1px solid #00aaff;
+    border-radius: 5px;
+    background-color: #1a1a1a;
+    color: #00aaff;
+}
+#commands button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+#execute-button {
+    background-color: #00aaff;
+    color: #000000;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#commands button:hover {
+    background-color: #0056b3;
+}
+.common-command {
+    background-color: #00aaff;
+    color: #000000;
+    border: none;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#delete-controls {
+    margin-top: 20px;
+}
+#delete-controls input {
+    padding: 10px;
+    width: 70%;
+    margin-right: 10px;
+}
+#delete-controls button {
+    padding: 10px 20px;
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+#delete-controls button:hover {
+    background-color: #c82333;
+}
+#history {
+    margin-bottom: 20px;
+}
+#shop {
+background-color: #fff;
+border: 2px solid #000;
+padding: 20px;
+width: 300px;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+}
+
+#shop-items li {
+margin-bottom: 10px;
+}
+#inventory {
+    display: none;
+    color: white;
+}
+p {
+    font-size: 20px;
+}
+.bar{
+    height: 130px;
+    width: auto;
+    margin-top: 10px;
+    top: 50px;
+    position: relative;
+}
+.bar-container {
+display: flex;
+margin-bottom: 10px;
+width: 50%; /* Full width by default */
+z-index: 1; /* Ensures it stays on top */
+
+}
+
+.bar-label {
+width: 50px; /* Ajusta el ancho de la etiqueta según sea necesario */
+margin-right: 10px; /* Espacio entre la etiqueta y la barra */
+font-weight: bold;
+color: #fff; /* Color del texto de la etiqueta */
+}
+.bar-item {
+display: flex;
+align-items: center;
+margin-right: 10px; /* Espacio entre la imagen y la barra */
+}
+
+.bar-icon {
+position: relative;
+width: 24px; /* Ajusta el tamaño según sea necesario */
+height: 24px;
+}
+#health-bar-container, #mana-bar-container, #exp-bar-container {
+width: 100%;
+max-width: 500px;
+height: 8px;
+background-color: #555;
+border-radius: 5px;
+overflow: hidden;
+}
+
+#health-bar, #mana-bar, #exp-bar {
+height: 100%;
+transition: width 0.5s ease;
+}
+
+#health-bar {
+background-color: #f00; /* Rojo para HP */
+}
+
+#mana-bar {
+background-color: #00f; /* Azul para Mana */
+}
+
+#exp-bar {
+background-color: #ff0; /* Amarillo para EXP */
+}
+.accordion-section {
+margin-bottom: 10px;
+}
+
+.section-title {
+font-weight: bold;
+cursor: pointer;
+padding: 5px;
+background-color: #333;
+color: #fff;
+border-radius: 5px;
+}
+
+.accordion-content {
+max-height: 0;
+overflow: hidden;
+transition: max-height 0.3s ease-out;
+background-color: black;
+border-radius: 5px;
+padding: 0 10px;
+}
+
+#top-right {
+position: absolute; /* Posiciona el contenedor de forma absoluta */
+top: 0; /* Coloca el contenedor en la parte superior */
+right: 0; /* Coloca el contenedor en el lado derecho */
+padding: 10px; /* Añade algo de espacio alrededor del contenedor */
+border-radius: 5px; /* Opcional: redondea los bordes */
+color: yellow
+}
+
+.coin-display {
+display: flex; /* Habilita Flexbox */
+align-items: center; /* Centra el contenido verticalmente */
+}
+
+.coins {
+font-size: 42px; /* Tamaño del texto */
+margin-left: 10px; /* Espacio entre la imagen y el texto */
+
+}
+.hp-icon, .mana-icon, .exp-icon {
+position: relative;
+width: 50px; /* Ajusta el ancho de la imagen */
+height: 50px; /* Ajusta la altura de la imagen */
+}
+.attributes-container {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+column-gap: 10px;
+width: 100%;
+max-width: 300px;
+height: auto;
+margin: 0 auto;
+position: relative;
+bottom: 75px;
+left: 200px;
+}
+
+
+.box {
+background-color: black;
+border: 1px solid white;
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 5px;
+}
+
+@media (max-width: 768px) {
+.attributes-container {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 10px;
+width: 100%;
+max-width: 300px;
+position: relative;
+bottom: 0px;
+left: 0px;
+margin: 0px;
+}
+.bar{
+    height: 130px;
+    width: auto;
+    margin-top: 10px;
+    position: relative;
+    top: 0px;
+}
+.bar-container {
+display: flex;
+margin-bottom: 10px;
+width: 100%;
+z-index: 1;
+}
+}
