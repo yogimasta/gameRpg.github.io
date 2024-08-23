@@ -490,6 +490,7 @@ z-index: 1;
     font-size: 14px;
     color: #333;
     text-align: left;
+    user-select: none;
 }
 .attributes-container-class {
     display: grid;
