@@ -511,7 +511,8 @@ z-index: 1;
     max-height: 0;
     overflow: hidden;
     opacity: 0;
-    transition: max-height 2s ease-out;
+    transition: max-height 2s ease-out, ease-in 0.5s;
+    user-select: none;
 }
 
 .attributes-container-class {
@@ -522,7 +523,7 @@ z-index: 1;
     max-height: 0;
     overflow: hidden;
     opacity: 0;
-    transition: max-height 2s ease-out;
+    transition: max-height 2s ease-out, ease-in 0.5s;
 }
 
 /* Efecto cuando pasas el cursor sobre el botón */
