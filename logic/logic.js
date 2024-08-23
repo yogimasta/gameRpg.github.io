@@ -1,4 +1,52 @@
 let player = {};
+function initializePlayer(savedUsername, savedPassword) {
+    player = {
+        username: savedUsername,
+        password: savedPassword,
+        maxLife: [],
+        mana: [],
+        maxMana: [],
+        stamina: [],
+        maxStamina: [],
+        strength: [],
+        speed: [],
+        intelligence: [],
+        level: 1,
+        xp: 0,
+        xpToNextLevel: 100,
+        life: 100,
+        age: 15,
+        maxAge: Math.floor(Math.random() * 50) + 50,
+        remainingDays: calculateRemainingDays(Math.floor(Math.random() * 50) + 50, 15),
+        remainingHours: 0,
+        coins: 0,
+        selectedClass: null,
+        treasures: [],
+        inventory: [],
+        story: "Welcome to the world of adventures! Type 'help' to see available commands.",
+        favorites: [],
+        statusLevels: {
+            strength: 1,
+            speed: 1,
+            intelligence: 1,
+            stamina: 1,
+            mana: 1
+        },
+        equipped: {
+            espada: null,
+            escudo: null
+        },
+        currentDungeon: null,
+        enemiesDefeated: 0,
+        enemiesToDefeat: 0,
+        upgradingStatus: false,
+        statusToUpgrade: null,
+        coinsToSpend: null,
+        deathHistory: player.deathHistory || [],
+        totalDaysPassed: 0
+    };
+}
+
 let missions = [
     { name: "Defeat the Goblin", description: "A goblin is terrorizing the village. Defeat it to gain rewards.", completed: false },
     { name: "Find the Lost Ring", description: "Find the lost ring in the forest to help the old lady.", completed: false }
@@ -15,110 +63,80 @@ function saveGame() {
 }
 
 function loadGame(username) {
-// Intenta obtener los datos del jugador del almacenamiento local
-let savedPlayer = localStorage.getItem(username);
+    let savedPlayer = localStorage.getItem(username);
 
-// Si hay datos guardados, los cargamos
-if (savedPlayer) {
-player = JSON.parse(savedPlayer);
+    if (savedPlayer) {
+        player = JSON.parse(savedPlayer);
 
-// Asegúrate de que todos los campos necesarios están inicializados
-if (!player.deathHistory) {
-    player.deathHistory = [];
-}
-
-if (!Array.isArray(player.inventory)) {
-    player.inventory = [];
-}
-
-// Si se requiere, inicializa otros campos necesarios aquí
-if (!player.equipped) {
-    player.equipped = {
-        espada: null,
-        escudo: null
-    };
-}
-
-// Asegúrate de inicializar otros campos si es necesario
-// ...
-
-// Actualiza la interfaz de usuario
-updateInventoryDisplay();
-updateStats();
-
-return true; // Datos cargados correctamente
-}
-
-// Si no hay datos guardados, devuelve false
-return false;
-}
-// Llama a esta función al cargar la página o al iniciar sesión
-function initializeGame(username) {
-if (loadGame(username)) {
-console.log('Juego cargado con éxito.');
-} else {
-console.log('No se encontraron datos guardados para el usuario.');
-// Opcional: Configura el estado inicial del juego si no hay datos guardados
-}
-}
-
-// Ejemplo de llamada al inicio
-const username = 'nombreDeUsuario'; // Reemplaza con el nombre de usuario real
-initializeGame(username);
-
-
-function resetGame() {
-    const savedDeathHistory = player.deathHistory;
-    const savedUsername = player.username;
-    const savedPassword = player.password;
-
-    player = {
-        username: savedUsername,
-        password: savedPassword,
-        level: 1,
-        xp: 0,
-        xpToNextLevel: 100,
-        life: 100,
-        maxLife: 100,
-        mana: 50,
-        maxMana: 50,
-        stamina: 50,
-        maxStamina: 50,
-        strength: 10,
-        speed: 10,
-        intelligence: 10,
-        age: 15,
-        maxAge: Math.floor(Math.random() * 50) + 50,
-        remainingDays: null,
-        remainingHours: 0,
-        coins: 0,
-        treasures: [],
-        inventory: [],
-        story: "Welcome to the world of adventures! Type 'help' to see available commands.",
-        favorites: [],
-        statusLevels: {
+        // Verifica si ya tiene una clase seleccionada
+        player.selectedClass = player.selectedClass || null;
+        
+        // Asegúrate de que todos los campos necesarios estén inicializados
+        player.deathHistory = player.deathHistory || [];
+        player.inventory = Array.isArray(player.inventory) ? player.inventory : [];
+        player.equipped = player.equipped || { espada: null, escudo: null };
+        player.coins = player.coins || 0;
+        player.treasures = Array.isArray(player.treasures) ? player.treasures : [];
+        player.statusLevels = player.statusLevels || {
             strength: 1,
             speed: 1,
             intelligence: 1,
             stamina: 1,
             mana: 1
-        },
-        equipped: {
-              espada: null,
-              escudo: null
-         },
-        currentDungeon: null,
-        enemiesDefeated: 0,
-        enemiesToDefeat: 0,
-        upgradingStatus: false,
-        statusToUpgrade: null,
-        coinsToSpend: null,
-        deathHistory: savedDeathHistory,
-        totalDaysPassed: 0 // Track the total number of days passed
-    };
+        };
+        player.story = player.story || "Welcome to the world of adventures! Type 'help' to see available commands.";
+        player.currentDungeon = player.currentDungeon || null;
+        player.totalDaysPassed = player.totalDaysPassed || 0;
+        player.maxAge = player.maxAge || Math.floor(Math.random() * 50) + 50;
+        player.remainingDays = player.remainingDays || calculateRemainingDays(player.maxAge, player.age);
 
-    player.remainingDays = calculateRemainingDays(player.maxAge, player.age);
+        // Actualiza la interfaz de usuario
+        updateInventoryDisplay();
+        updateStats();
+
+        return true; // Datos cargados correctamente
+    }
+
+    return false; // No se encontraron datos guardados
+}
+
+function initializeGame(username) {
+    // Intenta cargar el juego
+    if (loadGame(username)) {
+        console.log('Juego cargado con éxito.');
+        
+        // Verifica si el jugador ya ha seleccionado una clase
+        if (player.selectedClass) {
+            // Si ya seleccionó una clase, omite la selección de clase
+            document.getElementById('class-selection-container').style.display = 'none';
+            document.getElementById('game-container').style.display = 'block';
+            document.getElementById('inventory').style.display = 'block';
+            document.getElementById('coins').style.display = 'block';
+            document.getElementById('player-name').innerText = player.username;
+            updateStats();
+            updateStory(player.story);
+            startGameTimer();
+        } else {
+            // Si no ha seleccionado una clase, muestra la selección de clase
+            document.getElementById('class-selection-container').style.display = 'block';
+        }
+    } else {
+        console.log('No se encontraron datos guardados para el usuario.');
+        // Opcional: Configura el estado inicial del juego si no hay datos guardados
+    }
+}
+
+
+function resetGame() {
+    const savedUsername = player.username;
+    const savedPassword = player.password;
+    const savedDeathHistory = player.deathHistory;
+
+    initializePlayer(savedUsername, savedPassword);  // Reinicia el jugador manteniendo nombre y contraseña
+    player.deathHistory = savedDeathHistory;  // Restaura el historial de muertes
+
     saveGame();
+    currentDungeonLevel = 1;
 }
 
 function calculateRemainingDays(maxAge, currentAge) {
@@ -128,17 +146,25 @@ function calculateRemainingDays(maxAge, currentAge) {
 function login() {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
+    
     if (username && password) {
         if (loadGame(username)) {
             if (player.password === password) {
                 document.getElementById('login-container').style.display = 'none';
-                document.getElementById('game-container').style.display = 'block';
-                document.getElementById('inventory').style.display = 'block';
-                document.getElementById('coins').style.display = 'block';
-                document.getElementById('player-name').innerText = player.username;
-                updateStats();
-                updateStory(player.story);
-                startGameTimer();
+                
+                if (!player.selectedClass) {
+                    // Si no tiene clase seleccionada, mostrar selección de clase
+                    document.getElementById('class-selection-container').style.display = 'block';
+                } else {
+                    // Si ya tiene una clase, continuar con el juego
+                    document.getElementById('game-container').style.display = 'block';
+                    document.getElementById('inventory').style.display = 'block';
+                    document.getElementById('coins').style.display = 'block';
+                    document.getElementById('player-name').innerText = player.username;
+                    updateStats();
+                    updateStory(player.story);
+                    startGameTimer();
+                }
             } else {
                 alert('Incorrect password');
             }
@@ -150,22 +176,15 @@ function login() {
     }
 }
 
+
 function register() {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
     if (username && password) {
         if (!localStorage.getItem(username)) {
-            player = {
-                username: username,
-                password: password,
-            };
-            resetGame();
-            document.getElementById('login-container').style.display = 'none';
-            document.getElementById('game-container').style.display = 'block';
-            document.getElementById('player-name').innerText = player.username;
-            updateStats();
-            updateStory(player.story);
-            startGameTimer();
+            initializePlayer(username, password);  // Inicializa el jugador con los valores predeterminados
+            localStorage.setItem(username, JSON.stringify(player)); // Guarda los datos del jugador
+            alert('Registration successful! Please log in to start the game.');
         } else {
             alert('Username already exists');
         }
@@ -173,12 +192,87 @@ function register() {
         alert('Please enter both username and password');
     }
 }
+const classes = {
+    warrior: {
+        life: 150,
+        maxLife: 150,
+        mana: 20,
+        maxMana: 20,
+        stamina: 40,
+        maxStamina: 40,
+        strength: 20,
+        speed: 8,
+        intelligence: 5,
+    },
+    speedster: {
+        life: 80,
+        maxLife: 80,
+        mana: 100,
+        maxMana: 100,
+        stamina: 30,
+        maxStamina: 30,
+        strength: 5,
+        speed: 8,
+        intelligence: 20,
+    },
+    mage: {
+        life: 50,
+        maxLife: 50,
+        mana: 70,
+        maxMana: 70,
+        stamina: 100,
+        maxStamina: 100,
+        strength: 5,
+        speed: 20,
+        intelligence: 8,
+    }
+};
+
+function selectClass(selectedClass) {
+    const classAttributes = classes[selectedClass];
+
+    // Asignar los valores de clase al jugador
+    if (classAttributes) {
+        player.strength = classAttributes.strength;
+        player.speed = classAttributes.speed;
+        player.intelligence = classAttributes.intelligence;
+        player.maxStamina = classAttributes.maxStamina;
+        player.mana = classAttributes.mana;
+        player.maxMana = classAttributes.maxMana
+        player.maxLife = classAttributes.maxLife
+        player.life = classAttributes.life
+        player.stamina = classAttributes.stamina
+
+        // Guardar la clase seleccionada y actualizar la historia
+        player.selectedClass = selectedClass;
+
+        // Guarda el juego después de seleccionar la clase
+        saveGame();
+
+        // Ocultar selección de clase y mostrar el juego
+        document.getElementById('class-selection-container').style.display = 'none';
+        document.getElementById('game-container').style.display = 'block';
+        document.getElementById('inventory').style.display = 'block';
+        document.getElementById('coins').style.display = 'block';
+        document.getElementById('player-name').innerText = player.username;
+
+        updateStats();
+        updateStory(player.story);
+        startGameTimer();
+    } else {
+        console.error("Clase no válida seleccionada.");
+    }
+}
+
+
+
 
 function logout() {
     saveGame();
     stopGameTimer();
     document.getElementById('login-container').style.display = 'block';
     document.getElementById('game-container').style.display = 'none';
+    document.getElementById('inventory').style.display = 'none';
 }
 
 function showDeleteContainer() {
@@ -327,6 +421,7 @@ function getDeathTip(reason) {
 
 function showDeathScreen(tip) {
     document.getElementById('game-container').style.display = 'none';
+    document.getElementById('inventory').style.display = 'none';
     document.getElementById('death-container').style.display = 'block';
     updateStory(`<span style="color:red;">You are dead!</span> ${tip}`);
     disableGameButtons();
@@ -344,14 +439,29 @@ function enableGameButtons() {
 
 function playAgain() {
     document.getElementById('death-container').style.display = 'none';
-    resetGame();
+
+    // Reinicia el jugador
+    resetGame(); // Restablece los valores iniciales del juego
+    
+    // Permitir al jugador seleccionar una clase nuevamente
+    player.selectedClass = null;
+
+    // Actualiza las estadísticas e interfaz
     updateStats();
     updateStory(player.story);
     startGameTimer();
     enableGameButtons();
-    document.getElementById('game-container').style.display = 'block';
+
+    // Limpiar la interfaz y mostrar la selección de clase
+    document.getElementById('game-container').style.display = 'none'; // Oculta el juego hasta seleccionar clase
+    document.getElementById('class-selection-container').style.display = 'block'; // Muestra la selección de clase
+    
+    // Restablecer el inventario y actualizar visualización
     player.inventory = [];
     updateInventoryDisplay();
+
+    // Guardar el estado reiniciado del juego
+    saveGame();
 }
 
 
@@ -383,11 +493,13 @@ function explore() {
     if (encounter < 0.1) {
         updateStory("You found a treasure chest!");
         player.treasures.push({ name: "Treasure Chest", value: Math.floor(Math.random() * 100) + 50 });
-    } else if (encounter < 0.4) {
+    } else if (encounter < 0.2) {
         const dungeon = startDungeon();
         updateStory(`You have found the ${dungeon.name}. ${dungeon.description} Type 'enter dungeon' to explore or 'continue exploring' to stay outside.`);
     } else if (encounter < 0.6) {
+
         updateStory("aca deberias encontrar un monstro pero no se como hacerlo a xD");
+
     } else {
         updateStory('You explore the surroundings and <span style="color: #ff0;;">gain some experience</span>.');
         gainXP(xpGained);
@@ -446,68 +558,6 @@ function giveBirthdayGift() {
 
 
 
-function updateHealthBar() {
-const healthBar = document.getElementById('health-bar');
-const hpLabel = document.getElementById('hp-label');
-
-const healthPercentage = (player.life / player.maxLife) * 100;
-
-
-healthBar.style.width = `${healthPercentage}%`;
-hpLabel.textContent = `HP: ${player.life}/${player.maxLife}`;
-}
-
-
-function increaseMaxLife(amount) {
-player.maxLife += amount;
-if (player.life > player.maxLife) {
-player.life = player.maxLife; 
-}
-updateHealthBar(); 
-}
-
-
-
-function updateManaBar() {
-const manaBar = document.getElementById('mana-bar');
-const manaLabel = document.getElementById('mana-label');
-
-const manaPercentage = (player.mana / player.maxMana) * 100;
-
-
-manaBar.style.width = `${manaPercentage}%`;
-manaLabel.textContent = `Mana: ${player.mana}/${player.maxMana}`;
-
-}
-
-
-function increaseMaxMana(amount) {
-player.maxMana += amount;
-if (player.mana > player.maxMana) {
-player.mana = player.maxMana; 
-}
-updateManaBar(); 
-}
-
-function updateExpBar() {
-const expBar = document.getElementById('exp-bar');
-const expLabel = document.getElementById('exp-label');
-
-const expPercentage = (player.xp / player.xpToNextLevel) * 100;
-
-
-expBar.style.width = `${expPercentage}%`;
-
-expLabel.textContent = `EXP: ${player.xp}/${player.xpToNextLevel}`;
-}
-
-function increaseMaxExp(amount) {
-player.xpToNextLevel += amount;
-if (player.xp > player.xpToNextLevel) {
-player.xp = player.xpToNextLevel; 
-}
-updateExpBar(); 
-}
 
 function run() {
     if (player.life <= 0) {
@@ -780,6 +830,10 @@ function displayHistory() {
         `;
     }).join('<hr>');
     historyElement.innerHTML = historyContent;
+}
+function clearHistory() {
+    player.deathHistory = [];  // Vaciamos el array de historial de muertes
+    displayHistory();  // Actualizamos la vista para mostrar que no hay historial
 }
 
 let gameTimer;
