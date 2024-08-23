@@ -21,6 +21,78 @@
     <button onclick="register()">Register</button>
     <button onclick="showDeleteContainer()">Delete Account</button>
   </div>
+  <div id="class-selection-container" style="color:blue; display: none;">
+    <h1>Select Your Class</h1>
+    <div class="button-container">
+        <div class="class-button" onclick="selectClass('warrior')">
+            <button class="buttonClass">Warrior</button>
+            <p id="history-class">Nombre: Tharok, El Acero Indomable <br><br>
+
+              Tharok nació en una pequeña aldea, donde desde joven mostró una fuerza y determinación inquebrantables. Su vida cambió cuando una horda de orcos destruyó su hogar y dejó a su familia al borde de la muerte. Decidido a proteger a quienes amaba, Tharok se embarcó en un viaje para convertirse en el guerrero más fuerte del reino. Con cada batalla, su espada se impregnaba con la voluntad de los caídos, haciéndose más pesada, pero también más poderosa. Su cuerpo está cubierto de cicatrices, y su corazón, de acero. Ahora, Tharok vaga por el mundo, buscando el verdadero significado de la fuerza, defendiendo a los indefensos y desafiando a los tiranos.
+              <br><br>
+              Lema: "Mi espada es el escudo de los débiles, mi fuerza el terror de los injustos."</p>
+              <div class="attributes-container-class">
+                <div class="box">
+                    <img src="https://static.vecteezy.com/system/resources/previews/045/040/595/non_2x/hand-drawn-cartoon-bloody-sword-png.png" alt="HP Icon" class="hp-icon">
+                </div>
+                <div class="box">
+                    <img src="https://cdn.pixabay.com/photo/2023/11/20/10/41/brain-8400805_1280.png" alt="Mana Icon" class="mana-icon">
+                </div>
+                <div class="box">
+                    <img src="https://cdn-icons-png.freepik.com/512/4230/4230875.png" alt="EXP Icon" class="exp-icon">
+                </div>
+                <div class="box" >10</div>
+                <div class="box" >8</div>
+                <div class="box" >5</div>
+            </div>
+        </div>
+        <div class="class-button" onclick="selectClass('speedster')">
+            <button class="buttonClass">speedster</button>
+
+              <p id="history-class">Nombre: Kaelin, El Viento Errante <br><br>
+
+                Kaelin nació con un don especial: una velocidad inigualable. Desde niño, corría más rápido que el viento, explorando cada rincón de las tierras en las que vivía. Un día, mientras corría por los bosques, tropezó con un antiguo artefacto que le otorgó aún más velocidad, pero también lo marcó con una misión: encontrar las tres Reliquias del Viento. Ahora, Kaelin recorre el mundo como un explorador incansable, descubriendo secretos antiguos, protegiendo el equilibrio de la naturaleza y desafiando a cualquiera que se interponga en su camino. Él no lucha por gloria, sino por la libertad de ser siempre más rápido que cualquier peligro que aceche.
+                <br><br>
+                Lema: "El viento nunca se detiene, y tampoco lo haré yo."</p>
+              <div class="attributes-container-class">
+                <div class="box">
+                    <img src="https://static.vecteezy.com/system/resources/previews/045/040/595/non_2x/hand-drawn-cartoon-bloody-sword-png.png" alt="HP Icon" class="hp-icon">
+                </div>
+                <div class="box">
+                    <img src="https://cdn.pixabay.com/photo/2023/11/20/10/41/brain-8400805_1280.png" alt="Mana Icon" class="mana-icon">
+                </div>
+                <div class="box">
+                    <img src="https://cdn-icons-png.freepik.com/512/4230/4230875.png" alt="EXP Icon" class="exp-icon">
+                </div>
+                <div class="box" >5</div>
+                <div class="box" >8</div>
+                <div class="box" >10</div>
+            </div>
+        </div>
+        <div class="class-button" onclick="selectClass('mage')">
+            <button class="buttonClass">Mage</button>
+            <p id="history-class">Nombre: Liraeth, El Sabio de las Sombras <br><br>
+
+              Liraeth fue criado en las tierras oscuras, un lugar donde la magia fluía como ríos a través de la tierra misma. Desde joven, mostró un prodigioso control sobre las fuerzas arcanas, pero también una inquietante curiosidad por lo prohibido. Su sed de conocimiento lo llevó a profundizar en los antiguos grimorios, aprendiendo secretos olvidados que lo cambiaron para siempre. Durante una tormenta mágica, invocó un poder oscuro que casi destruyó su aldea. Desde entonces, Liraeth vaga en busca de redención, empleando sus habilidades para proteger a los inocentes y encontrar un equilibrio entre la luz y la oscuridad dentro de su propio ser.
+              <br><br>
+              Lema: "El conocimiento es poder, pero también una carga que pocos pueden soportar."</p>
+              <div class="attributes-container-class">
+                <div class="box">
+                    <img src="https://static.vecteezy.com/system/resources/previews/045/040/595/non_2x/hand-drawn-cartoon-bloody-sword-png.png" alt="HP Icon" class="hp-icon">
+                </div>
+                <div class="box">
+                    <img src="https://cdn.pixabay.com/photo/2023/11/20/10/41/brain-8400805_1280.png" alt="Mana Icon" class="mana-icon">
+                </div>
+                <div class="box">
+                    <img src="https://cdn-icons-png.freepik.com/512/4230/4230875.png" alt="EXP Icon" class="exp-icon">
+                </div>
+                <div class="box" >8</div>
+                <div class="box" >10</div>
+                <div class="box" >5</div>
+            </div>
+        </div>
+    </div>
+</div>
   <div id="top-right">
     <div id="coins" style="display: none;">${player.coins}</div>
   </div>
@@ -28,7 +100,7 @@
     <h1 id="player-name"></h1>
     <button onclick="logout()">Logout</button>
     <button onclick="showHistory()">History</button>
-   
+
     <div class="bar">
         <div class="bar-container">
             <div class="bar-item">
@@ -108,15 +180,19 @@
       <button class="common-command" onclick="executeCommonCommand('shop')">Shop</button>
     </div>
   </div>
-  <div id="death-container" style="display: none;">
-    <h1 style="color: red;">You are dead!</h1>
-    <button onclick="playAgain()">Play Again</button>
-  </div>
-  <div id="history-container" style="display: none;">
-    <h1>Player History</h1>
-    <div id="history"></div>
-    <button onclick="hideHistory()">Back to Game</button>
-  </div>
+
+  <div id="death-container" style="display: none; text-align: center; padding: 50px; background-color: black; color: white;">
+    <h1 id="death-message" style="font-size: 3em; color: red; border-right: 2px solid; width: max-content; margin: 0 auto; white-space: nowrap; overflow: hidden;">
+        You are dead!
+    </h1>
+    <button style="padding: 10px 20px; font-size: 1.5em; margin-top: 20px; background-color: red; color: white; border: none; cursor: pointer;" onclick="playAgain()">Play Again</button>
+</div>
+<div id="history-container" style="display: none;">
+  <h1>Player History</h1>
+  <div id="history"></div>
+  <button onclick="hideHistory()">Back to Game</button>
+  <button onclick="clearHistory()">Clear History</button>
+</div>
   <div id="shop" style="display: none;">
     <h2>Shop</h2>
     <ul id="shop-items">
