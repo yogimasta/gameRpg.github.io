@@ -1,69 +1,44 @@
 let dungeons = [
     { name: "Dark Cave", description: "A spooky cave filled with unknown dangers.", level: 1, enemyTypes: [
-        { type: 'Goblin', baseLife: 10, lifeMultiplier: 1.2 },
-        { type: 'Bat', baseLife: 8, lifeMultiplier: 1.1 }
+        { type: 'Goblin', baseLife: 30, lifeMultiplier: 1.2, minDamage: 10, maxDamage: 20 },
+        { type: 'Bat', baseLife: 40, lifeMultiplier: 1.1, minDamage: 15, maxDamage: 25 }
     ]},
     { name: "Abandoned Castle", description: "An old castle with hidden treasures and lurking ghosts.", level: 2, enemyTypes: [
-        { type: 'Ghost', baseLife: 10, lifeMultiplier: 1.2 },
-        { type: 'banshee', baseLife: 15, lifeMultiplier: 1.3 },
-        { type: 'Wandering Soul', baseLife: 20, lifeMultiplier: 1.4 }
+        { type: 'Ghost', baseLife: 30, lifeMultiplier: 1.2, minDamage: 20, maxDamage: 30 },
+        { type: 'Banshee', baseLife: 35, lifeMultiplier: 1.3, minDamage: 25, maxDamage: 35 },
+        { type: 'Wandering Soul', baseLife: 45, lifeMultiplier: 1.4, minDamage: 30, maxDamage: 40 }
     ]},
     { name: "Haunted Forest", description: "A dense forest haunted by restless spirits and strange creatures.", level: 3, enemyTypes: [
-        { type: 'Skeleton', baseLife: 15, lifeMultiplier: 1.3 },
-        { type: 'Forest Spirit', baseLife: 20, lifeMultiplier: 1.4 },
-        { type: 'Will-o\'-the-Wisp', baseLife: 12, lifeMultiplier: 1.5 }
+        { type: 'Skeleton', baseLife: 40, lifeMultiplier: 1.3, minDamage: 25, maxDamage: 30 },
+        { type: 'Forest Spirit', baseLife: 50, lifeMultiplier: 1.4, minDamage: 30, maxDamage: 35 },
+        { type: 'Will-o\'-the-Wisp', baseLife: 55, lifeMultiplier: 1.5, minDamage: 30, maxDamage: 40 }
     ]},
     { name: "Ancient Ruins", description: "Ruins of a forgotten civilization, rumored to contain powerful relics.", level: 4, enemyTypes: [
-        { type: 'Ancient Guardian', baseLife: 25, lifeMultiplier: 1.6 },
-        { type: 'Stone Golem', baseLife: 30, lifeMultiplier: 1.7 }
+        { type: 'Ancient Guardian', baseLife: 50, lifeMultiplier: 1.6, minDamage: 35, maxDamage: 40 },
+        { type: 'Stone Golem', baseLife: 60, lifeMultiplier: 1.7, minDamage: 30, maxDamage: 50 }
     ]},
     { name: "Mysterious Crypt", description: "A crypt filled with ancient undead and guarded by powerful curses.", level: 5, enemyTypes: [
-        { type: 'Undead Knight', baseLife: 35, lifeMultiplier: 1.8 },
-        { type: 'Lich', baseLife: 40, lifeMultiplier: 1.9 },
-        { type: 'Mummy', baseLife: 30, lifeMultiplier: 1.8 }
+        { type: 'Undead Knight', baseLife: 55, lifeMultiplier: 1.8, minDamage: 40, maxDamage: 50 },
+        { type: 'Lich', baseLife: 55, lifeMultiplier: 1.9, minDamage: 45, maxDamage: 50 },
+        { type: 'Mummy', baseLife: 60, lifeMultiplier: 1.8, minDamage: 50, maxDamage: 60 }
     ]},
     { name: "Forgotten Temple", description: "A long-lost temple, said to be home to legendary artifacts and formidable guardians.", level: 6, enemyTypes: [
-        { type: 'Temple Guardian', baseLife: 45, lifeMultiplier: 2.0 },
-        { type: 'Serpent Demon', baseLife: 50, lifeMultiplier: 2.1 },
-        { type: 'Ancient Elemental', baseLife: 55, lifeMultiplier: 2.2 }
+        { type: 'Temple Guardian', baseLife: 55, lifeMultiplier: 2.0, minDamage: 50, maxDamage: 65 },
+        { type: 'Serpent Demon', baseLife: 60, lifeMultiplier: 2.1, minDamage: 50, maxDamage: 60 },
+        { type: 'Ancient Elemental', baseLife: 60, lifeMultiplier: 2.2, minDamage: 55, maxDamage: 65 }
+    ]},
+    { name: "Infernus", description: "a place full of ancestral fire and demons that seek to devour you.", level: 7, enemyTypes: [
+        { type: 'Demon', baseLife: 70, lifeMultiplier: 2.4, minDamage: 70, maxDamage: 75 },
+        { type: 'Cerberus', baseLife: 80, lifeMultiplier: 2.3, minDamage: 70, maxDamage: 80 },
+        { type: 'Sucubo', baseLife: 80, lifeMultiplier: 2.1, minDamage: 70, maxDamage: 80 }
+    ]},
+    { name: "City of heaven", description: "Is a majestic city in the clouds, where golden light shines eternally on structures of white marble and crystal. Guarded by ancient beings of light and shadow, only the worthy may enter and face its trials.", level: 8, enemyTypes: [
+        { type: 'Potestad Guanda', baseLife: 105, lifeMultiplier: 2.0, minDamage: 80, maxDamage: 90 },
+        { type: 'Ofanim Cosmo', baseLife: 110, lifeMultiplier: 2.1, minDamage: 90, maxDamage: 95 },
+        { type: 'archangel gabriel', baseLife: 130, lifeMultiplier: 2.2, minDamage: 100, maxDamage: 120 }
     ]}
 ];
 
-function fight() {
-    if (player.life <= 0) {
-    showDeathScreen("You are dead and cannot fight.");
-    return;
-    }
-    
-    let staminaCost = Math.floor(Math.random() * 9) + 2;
-    if (player.stamina < staminaCost) {
-    updateStory("You are too tired to fight. Rest to recover stamina.");
-    return;
-    }
-    
-    player.stamina -= staminaCost;
-    
-    // Daño infligido al jugador por el enemigo
-    let damage = Math.floor(Math.random() * 20) + 10; // Daño de mi pj
-    player.life -= damage;
-    
-    // Verifica si el jugador ha muerto
-    if (player.life <= 0) {
-    player.life = 0;
-    updateStory("You fought bravely but were defeated. Rest to recover.");
-    checkDeath("life");
-    } else {
-    let xpGained = Math.floor(Math.random() * 50) + 30;
-    let coinsGained = Math.floor(Math.random() * 20) + 5;
-    updateStory(`You fought an enemy and took ${damage} damage but gained ${xpGained} XP and ${coinsGained} coins.`);
-    gainXP(xpGained);
-    player.coins += coinsGained;
-    }
-    
-    updateStats(); 
-    updateHealthBar();
-    saveGame(); 
-    }
     let currentDungeonLevel = 1; // Siempre comenzamos en el nivel 1
 
 function startDungeon() {
@@ -91,7 +66,7 @@ function startDungeon() {
 
 function checkBossDefeat() {
     if (player.currentDungeon && player.currentDungeon.boss.life <= 0) {
-        if (currentDungeonLevel < 6) { // Usa currentDungeonLevel aquí
+        if (currentDungeonLevel < 9) { // Usa currentDungeonLevel aquí
             let proceed = confirm(`You defeated the boss of Level ${player.currentDungeon.level}! Do you want to proceed to Level ${currentDungeonLevel + 1}?`);
             if (proceed) {
                 currentDungeonLevel++; // Avanza al siguiente nivel
@@ -133,12 +108,14 @@ function checkBossDefeat() {
     }
     function generateBoss(dungeonLevel) {
         const dungeonBosses = [ 
-            { dungeon: "Dark Cave", type: 'King Goblin', baseLife: 100, lifeMultiplier: 1.2 },
-            { dungeon: "Abandoned Castle", type: 'Warden of Oblivion', baseLife: 110, lifeMultiplier: 1.3 },
-            { dungeon: "Haunted Forest", type: 'King Elf', baseLife: 120, lifeMultiplier: 1.4 },
-            { dungeon: "Ancient Ruins", type: 'Titan', baseLife: 130, lifeMultiplier: 1.5 },
-            { dungeon: "Mysterious Crypt", type: 'King Zombie', baseLife: 140, lifeMultiplier: 1.6 },
-            { dungeon: "Forgotten Temple", type: 'Bill Clave', baseLife: 150, lifeMultiplier: 1.7 }
+            { dungeon: "Dark Cave", type: 'King Goblin', baseLife: 90, lifeMultiplier: 1.2, minDamage: 40, maxDamage: 50 },
+            { dungeon: "Abandoned Castle", type: 'Warden of Oblivion', baseLife: 120, lifeMultiplier: 1.3, minDamage: 45, maxDamage: 55 },
+            { dungeon: "Haunted Forest", type: 'King Elf', baseLife: 150, lifeMultiplier: 1.4, minDamage: 50, maxDamage: 60 },
+            { dungeon: "Ancient Ruins", type: 'Titan', baseLife: 250, lifeMultiplier: 1.5, minDamage: 60, maxDamage: 65 },
+            { dungeon: "Mysterious Crypt", type: 'King Zombie', baseLife: 280, lifeMultiplier: 1.6, minDamage: 90, maxDamage: 100 },
+            { dungeon: "Forgotten Temple", type: 'Bill Clave', baseLife: 300, lifeMultiplier: 1.7, minDamage: 105, maxDamage: 110 },
+            { dungeon: "Infernus", type: 'Lucifer', baseLife: 350, lifeMultiplier: 1.7, minDamage: 150, maxDamage: 160 },
+            { dungeon: "City of Heaven", type: 'God', baseLife: 500, lifeMultiplier: 2, minDamage: 160, maxDamage: 170 }
         ];
     
         // Filtrar el boss basado en el nivel del dungeon
@@ -183,28 +160,37 @@ function fightDungeonEnemy() {
         return;
     }
 
-    // El resto de tu código de batalla aquí
-    let damage = Math.floor(Math.random() * 20) + 10;
+    // Costo de resistencia para luchar
+    let staminaCost = Math.floor(Math.random() * 9) + 2;
+    if (player.stamina < staminaCost) {
+        updateStory("You are too tired to fight. Rest to recover stamina.");
+        inBattle = false;
+        return;
+    }
+    player.stamina -= staminaCost;
+
+    // Daño infligido al jugador por el enemigo
+    let damage = Math.floor(Math.random() * 20) + 10; // Daño del enemigo
     player.life -= damage;
 
-    if (player.life < 0) player.life = 0;
-
-    let baseDamage = Math.floor(Math.random() * 10) + 10;
-    let strengthFactor = player.strength / 10;
-    let enemyDamage = Math.floor(baseDamage * strengthFactor);
-    currentEnemy.life -= enemyDamage;
-
     if (player.life <= 0) {
-        updateStory("You were defeated by the enemy.");
+        player.life = 0;
+        updateStory("You fought bravely but were defeated. Rest to recover.");
         checkDeath("life");
         inBattle = false;
         return;
     }
 
+    // Daño infligido al enemigo por el jugador
+    let baseDamage = Math.floor(Math.random() * 10) + 10;
+    let strengthFactor = player.strength / 10;
+    let enemyDamage = Math.floor(baseDamage * strengthFactor);
+    currentEnemy.life -= enemyDamage;
+
     if (currentEnemy.life <= 0) {
         player.enemiesDefeated++;
         if (currentEnemy === player.currentDungeon.boss) {
-            const reward = { coins: Math.floor(Math.random() * 100) + 50 };
+            const reward = { coins: Math.floor(Math.random() * 100) + 100 };
             player.coins += reward.coins;
             updateStory(`
                 <div class="dungeon-clear">You defeated the Dungeon Boss!</div>
@@ -222,7 +208,7 @@ function fightDungeonEnemy() {
             player.currentDungeon.enemies.shift(); // Elimina al enemigo derrotado
             inBattle = player.currentDungeon.enemies.length > 0 || player.currentDungeon.boss; // Continua la batalla si quedan enemigos o un jefe
         }
-        gainXP(50);
+        gainXP(100);
     } else {
         const roundedLife = Math.round(currentEnemy.life);
         updateStory(`
@@ -234,50 +220,6 @@ function fightDungeonEnemy() {
     }
 
     updateStats();
-    saveGame();
-}
-
-
-function useMagic(spell) {
-    if (!player.currentDungeon) {
-        updateStory("You are not in a dungeon to use magic.");
-        return;
-    }
-    let manaCost;
-    let damage;
-    if (spell === "fireball") {
-        manaCost = 20;
-        damage = Math.floor(Math.random() * 35) + 25;
-    } else if (spell === "shield") {
-        manaCost = 10;
-        damage = 0; // Shield doesn't deal damage but can be enhanced to reduce incoming damage
-    } else {
-        updateStory("Unknown spell. Available spells are 'fireball' and 'shield'.");
-        return;
-    }
-
-    if (player.mana < manaCost) {
-        updateStory("Not enough mana to cast the spell.");
-        return;
-    }
-    player.mana -= manaCost;
-    const currentEnemy = player.currentDungeon.enemies[0] || player.currentDungeon.boss;
-    currentEnemy.life -= damage;
-
-    if (currentEnemy.life <= 0) {
-        player.enemiesDefeated++;
-        if (currentEnemy === player.currentDungeon.boss) {
-            const reward = { coins: Math.floor(Math.random() * 100) + 50 };
-            player.coins += reward.coins;
-            updateStory(`You defeated the Dungeon Boss with magic! You have cleared the dungeon and earned ${reward.coins} coins.`);
-            player.currentDungeon = null;
-        } else {
-            updateStory(`You defeated ${currentEnemy.name} with a ${spell}. ${player.enemiesDefeated}/${player.enemiesToDefeat} enemies defeated.`);
-        }
-        gainXP(50);
-    } else {
-        updateStory(`You used ${spell} and dealt ${damage} damage. The enemy has ${currentEnemy.life} life left.`);
-    }
-    updateStats();
+    updateHealthBar();
     saveGame();
 }
