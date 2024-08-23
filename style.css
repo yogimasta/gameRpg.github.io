@@ -369,39 +369,6 @@ left: 200px;
     justify-content: center;
     padding: 10px; /* Espaciado interno más amplio */
 }
-
-@media (max-width: 768px) {
-.attributes-container {
-display: grid;
-grid-template-columns: repeat(3, 1fr);
-width: 100%;
-max-width: 300px;
-position: relative;
-bottom: 0px;
-left: 0px;
-margin: 0px;
-}
-.bar{
-    height: 130px;
-    width: auto;
-    margin-top: 10px;
-    position: relative;
-    top: 0px;
-    
-}
-.bar-container {
-display: flex;
-margin-bottom: 10px;
-width: 100%;
-z-index: 1;
-
-}
-}
-@keyframes typing {
-    from { width: 0; }
-    to { width: 100%; }
-}
-
 #death-message {
     width: 0;
     animation: typing 4s steps(30, end) forwards;
@@ -490,7 +457,6 @@ z-index: 1;
     font-size: 14px;
     color: #333;
     text-align: left;
-    user-select: none;
 }
 .attributes-container-class {
     display: grid;
@@ -503,3 +469,72 @@ z-index: 1;
     bottom: 87px;
     left: 200px;
     }
+
+@media (max-width: 768px) {
+.attributes-container {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+width: 100%;
+max-width: 300px;
+position: relative;
+bottom: 0px;
+left: 0px;
+margin: 0px;
+}
+.bar{
+    height: 130px;
+    width: auto;
+    margin-top: 10px;
+    position: relative;
+    top: 0px;
+    
+}
+
+.bar-container {
+display: flex;
+margin-bottom: 10px;
+width: 100%;
+z-index: 1;
+
+}
+.button-container {
+    display: block;
+    justify-content: center;
+    gap: 20px; /* Espacio igual entre los botones */
+    align-items: center;
+}
+#history-class {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #333;
+    text-align: left;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 2s ease-out;
+}
+
+.attributes-container-class {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    max-width: 300px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 2s ease-out;
+}
+
+/* Efecto cuando pasas el cursor sobre el botón */
+.class-button:hover #history-class,
+.class-button:hover .attributes-container-class {
+    max-height: 500px; /* Altura máxima estimada */
+    opacity: 1;
+}
+
+}
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
