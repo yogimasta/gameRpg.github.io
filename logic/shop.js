@@ -1,10 +1,10 @@
 const shopItems = [
     { id: 1, name: "Iron sword", tipo: "arma", nivel: 1, efecto: { strength: 5 }, price: 100 },
-    { id: 2, name: "Steel sword", tipo: "arma", nivel: 2, efecto: { strength: 10 }, price: 200 },
-    { id: 3, name: "Fire sword", tipo: "arma", nivel: 3, efecto: { strength: 20 }, price: 300 },
-    { id: 4, name: "Wodeen shield", tipo: "escudo", nivel: 1, efecto: { maxLife: 10 }, price: 50 },
-    { id: 5, name: "Iron shield", tipo: "escudo", nivel: 2, efecto: { maxLife: 20 }, price: 100 },
-    { id: 6, name: "Steel shield", tipo: "escudo", nivel: 3, efecto: { maxLife: 30 }, price: 150 }
+    { id: 2, name: "Steel sword", tipo: "arma", nivel: 2, efecto: { strength: 10 }, price: 300 },
+    { id: 3, name: "Fire sword", tipo: "arma", nivel: 3, efecto: { strength: 20 }, price: 500 },
+    { id: 4, name: "Wodeen shield", tipo: "escudo", nivel: 1, efecto: { maxLife: 20 }, price: 50 },
+    { id: 5, name: "Iron shield", tipo: "escudo", nivel: 2, efecto: { maxLife: 50 }, price: 100 },
+    { id: 6, name: "Steel shield", tipo: "escudo", nivel: 3, efecto: { maxLife: 100 }, price: 150 }
     ];
     
     // Mostrar la tienda
